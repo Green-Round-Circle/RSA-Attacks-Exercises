@@ -1,0 +1,17 @@
+from Crypto.Util.number import long_to_bytes,bytes_to_long
+#Chinese remainder theorem
+
+#Is used when we have both modulis and the remainders, we solve for x.
+moduli = [ 2750869699 ,3577198979 ,3381166391 ,2771911651 ,4065392021 ,2507572883 ,3989563579 ,3566394371 ,2489894999 ,2512129721 ,3498415607 ,2233340311 ,3816646321 ,2308718567 ,2373876503 ,2717902483 ,3954706967 ,3008550557 ]
+remainders = [ 840420702 ,628823467 ,2357834225 ,325158304 ,3346958909 ,233571907 ,1158179159 ,360572392 ,319392866 ,644709558 ,1915420314 ,1622174317 ,2771932855 ,158574107 ,471468729 ,1814592372 ,501717309 ,260201790 ]
+prod = 1
+for i in moduli:
+    prod*=i
+x = 0
+for ni,ri in zip(moduli,remainders):
+    mi = prod // ni
+    y = pow(mi,-1,ni)
+    x +=mi*y*ri
+x = x % prod
+
+print(long_to_bytes(x))
